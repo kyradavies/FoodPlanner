@@ -1,1 +1,1 @@
-web: gunicorn app:recipe_data_collection
+web: gunicorn recipe_data_collection:app

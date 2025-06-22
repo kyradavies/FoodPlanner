@@ -328,4 +328,5 @@ def send_email(n_clicks, recipient_email,table_data):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.runq(debug=True)
+
