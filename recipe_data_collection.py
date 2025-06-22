@@ -71,6 +71,8 @@ def get_urls(query):
 
 # -- Dash App --
 app = dash.Dash(__name__,external_stylesheets=[dbc.themes.MINTY])
+server = app.server
+
 app.title = "Recipe Scraper"
 
 app.layout = dbc.Container([
