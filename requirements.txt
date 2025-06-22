@@ -1,51 +1,9 @@
-ansi2html @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_d0qoazb58q/croot/ansi2html_1705049847694/work
-attrs @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_3d06zr_mcz/croot/attrs_1734533118470/work
+
 beautifulsoup4==4.13.4
-blinker @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_50ofyjh0pb/croot/blinker_1737448732393/work
-Bottleneck @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_33wnmqdh9g/croot/bottleneck_1731058648266/work
-Brotli @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_d7pp3g74_g/croot/brotli-split_1736182638718/work
-certifi @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_cesa53jxug/croot/certifi_1745939220134/work/certifi
-charset-normalizer @ file:///croot/charset-normalizer_1721748349566/work
-click @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_fdbzzxkwu5/croot/click_1744271643020/work
 dash==3.0.4
 dash-bootstrap-components==2.0.2
 dash_ag_grid==31.3.1
-exceptiongroup @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_f147j11jio/croot/exceptiongroup_1706031400682/work
-Flask @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_0bn8z9nupr/croot/flask_1716545880759/work
-Flask-Compress @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_535gwx7r3_/croot/flask-compress_1668714952405/work
 gunicorn==23.0.0
-h11 @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_14h6x3q_k6/croot/h11_1706652288187/work
-idna @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_2b_jn555_n/croot/idna_1714398852258/work
-importlib_metadata @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_3e5enqet8m/croot/importlib_metadata-suite_1732633497061/work
-itsdangerous @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_f7bt4rtvu8/croot/itsdangerous_1716533350521/work
-Jinja2 @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_f4xtf61_ib/croot/jinja2_1741715270435/work
-MarkupSafe @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_76vhch455b/croot/markupsafe_1738584048225/work
-narwhals @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_d1hwnfxjem/croot/narwhals_1742845967052/work
-nest-asyncio @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_c44_atq5c1/croot/nest-asyncio_1708532677863/work
-numexpr @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_ffj5ghzq2u/croot/numexpr_1730215943719/work
-numpy @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_b7iptlxgej/croot/numpy_and_numpy_base_1708638622773/work/dist/numpy-1.26.4-cp310-cp310-macosx_10_9_x86_64.whl#sha256=9699ffbfee60303323e1bd3d1e591a5fd3b8960e72a61fc675d2c4bc1cb76148
-outcome @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_a8226xbs2_/croot/outcome_1741014044449/work
-packaging @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_15t4xe1fp0/croot/packaging_1734472125760/work
-pandas @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_d6o0iypzho/croot/pandas_1732735102618/work/dist/pandas-2.2.3-cp310-cp310-macosx_10_15_x86_64.whl#sha256=6334d127aafbc0f099e9829cec4c024bf1459028d5f1d4817e6ccc63b7cb8369
-plotly @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_101ss4yspw/croot/plotly_1744960881462/work
-PySocks @ file:///Users/builder/ci_310/pysocks_1642536366386/work
-python-dateutil @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_efk5_uakg8/croot/python-dateutil_1716495742183/work
 python-dotenv==1.1.0
-pytz @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_244ln7biq9/croot/pytz_1713974320727/work
-requests @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_2eh84h3yiv/croot/requests_1730999127987/work
-retrying @ file:///Users/ktietz/demo/mc3/conda-bld/retrying_1629465456590/work
-selenium @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_19zmh4kcev/croot/selenium_1727169278861/work
-six @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_2e3n1z57yz/croot/six_1744271514562/work
-sniffio @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_a46njf828g/croot/sniffio_1705431298111/work
-sortedcontainers @ file:///tmp/build/80754af9/sortedcontainers_1623949099177/work
 soupsieve==2.7
-trio @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_e1ipyreu4b/croot/trio_1729106655358/work
-trio-websocket @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_08ogdble3n/croot/trio-websocket_1741025731998/work
-typing_extensions @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_6dn2s8ln8g/croot/typing_extensions_1734714858107/work
-tzdata @ file:///croot/python-tzdata_1746123641790/work
-urllib3 @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_8bqv7goib8/croot/urllib3_1737133637259/work
 webdriver-manager==4.0.2
-websocket-client @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_8c3cjp8r36/croot/websocket-client_1715878317325/work
-Werkzeug @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_34hd27z78h/croot/werkzeug_1731005772104/work
-wsproto @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_57o7r97z8p/croot/wsproto_1725051549764/work
-zipp @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_d1md1mr9su/croot/zipp_1732630765619/work
