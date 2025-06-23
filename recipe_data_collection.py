@@ -11,6 +11,7 @@ from dash import callback_context
 from datetime import datetime
 import smtplib
 from email.mime.text import MIMEText
+import os
 
 today=datetime.today().strftime('%Y-%m-%d')
 days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
