@@ -309,8 +309,6 @@ def send_email(n_clicks, recipient_email,table_data):
     if not recipient_email:
         return "Please enter an email address."
 
-    from_email = "kyrajdavies@gmail.com"
-    app_password = "bzcg talb otjl xutg"
     df_from_input = pd.DataFrame(table_data)
     html_body = df_from_input.to_html(index=False, border=1) 
 
