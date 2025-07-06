@@ -1,9 +1,24 @@
 import requests
+import sys
 from bs4 import BeautifulSoup
 import pandas as pd
 import dash
-from dash import html, dcc, Input, Output, State, dash_table
+from dash import html, dcc, Input, Output, State
+import dash_bootstrap_components as dbc
+import dash_ag_grid as dag
+import uuid
+from dash import callback_context  
+from datetime import datetime
+import smtplib
+from email.mime.text import MIMEText
+import os
+# environment variable
+from_email = os.environ.get("from_email")
+app_password = os.environ.get("app_password")
 
+
+today=datetime.today().strftime('%Y-%m-%d')
+days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 headers = {"User-Agent": "Mozilla/5.0"}
 
 # -- Scraping functions --
@@ -11,9 +26,12 @@ def get_recipe(url):
     response = requests.get(url, headers=headers)
     soup = BeautifulSoup(response.text.strip(), "html.parser")
 
-    title = soup.find("h1").text.strip()
+    try:
+        title = soup.find("h1").text.strip()
+    except:
+        title = "Untitled"
 
-    ingredients = [li.text.strip() for li in soup.select("ul.ingredients-list__group li")]
+    ingredients = [li.text.strip() for li in soup.select("ul.ingredients-list li")]
 
     prep, cook = None, None
     time_tags = soup.find_all("div", class_="recipe-cook-and-prep-details__item")
@@ -24,17 +42,19 @@ def get_recipe(url):
             cook = tag.text.strip()
 
     return {
+        'id': str(uuid.uuid4()),  # unique ID for AG Grid
         'title': title,
         'prep_time': prep,
         'cook_time': cook,
-        'ingredients': "\n".join(ingredients)
+        'ingredients': "\n".join(ingredients) if ingredients else "N/A",
+        'Link':url
     }
 
 def get_urls(query):
     base_url = "https://www.bbcgoodfood.com/search"
     all_urls = set()
 
-    for page in range(1, 3):  # Pages 1 and 2 only (faster)
+    for page in range(1, 3):  # Pages 1 and 2 only
         params = {"q": query, "page": page}
         response = requests.get(base_url, params=params, headers=headers)
         soup = BeautifulSoup(response.text, "html.parser")
@@ -42,7 +62,7 @@ def get_urls(query):
         for article in soup.select("article"):
             link = article.find("a", href=True)
             if link and "/recipes/" in link['href']:
-                full_url = "https://www.bbcgoodfood.com" + link['href']
+                full_url = link['href']
                 all_urls.add(full_url)
 
     recipe_data = []
@@ -55,41 +75,92 @@ def get_urls(query):
     return pd.DataFrame(recipe_data)
 
 # -- Dash App --
-app = dash.Dash(__name__)
+app = dash.Dash(__name__,external_stylesheets=[dbc.themes.MINTY])
+server = app.server
+
 app.title = "Recipe Scraper"
 
-app.layout = html.Div([
-    html.H2("BBC Good Food Recipe Finder"),
-    dcc.Input(id="search-input", type="text", placeholder="Enter a recipe keyword (e.g. beans)", style={"width": "60%"}),
-    html.Button("Search", id="search-button", n_clicks=0),
+app.layout = dbc.Container([
+    dcc.Store(id="stored-results", data=[], storage_type='local'),
+    dcc.Store(id="selected-store", data=[], storage_type='local'),
+    dcc.Store(id="selected-ingred", data=[], storage_type='local'),
+    html.H1("Forkcast",style={'display': 'flex','justifyContent': 'center'}),
+    dcc.Input(id="search-input", type="text", placeholder="Enter a recipe keyword (e.g. beans)"),
+    dbc.Button("Search", id="search-button", n_clicks=0, color="primary",style={'margin': '5px'}),
     html.Div(id="loading-msg", style={"marginTop": "1em", "color": "gray"}),
     html.Hr(),
-    dash_table.DataTable(
-        id="results-table",
-        columns=[
-            {"name": "Title", "id": "title"},
-            {"name": "Prep Time", "id": "prep_time"},
-            {"name": "Cook Time", "id": "cook_time"},
-            {"name": "Ingredients", "id": "ingredients"},
-        ],
-        style_cell={"whiteSpace": "pre-line", "textAlign": "left"},
-        style_table={"overflowX": "auto"},
-    )
-], style={"maxWidth": "800px", "margin": "auto", "padding": "2em"})
+    dag.AgGrid(
+        id="results-table2",
+        columnDefs=[],
+        rowData=[],
+        dashGridOptions={
+            "rowSelection": "multiple",
+            "suppressRowClickSelection": True,
+            "singleClickEdit": True,
+            "animateRows": False,
+            "rememberSelected": True,
+            "getRowId": {"function": "params.data.id"}
+        },csvExportParams={
+                "fileName": f"meal_plan_{today}.csv",
+            },
+         style={'width': '95%',"height": "400px"},
+    ),
+    html.Hr(),
+    dbc.Input(id="email-input", type="email", placeholder="Enter email"),
+    dbc.Button("Email me this meal planner", id="email-button-meals", n_clicks=0,style={'margin': '20px'},color='primary'),
+    dbc.Button("Download meal planner", id="csv-button-meals", n_clicks=0,style={'margin': '20px'},color='primary'),
+    dcc.Download(id="download-csv"),
+    dbc.Button("Clear selection", id="clear-button", n_clicks=0,style={'margin': '20px'},color='primary'),
+    html.Hr(),
+    html.H2("Selected recipes:"),
+    html.Pre(id="selected-output"),
+    html.Hr(),
+    html.H2("Weekly Planner:"),
+    dag.AgGrid(
+            id="week-grid",
+            columnDefs=[{"headerName": day, "field": day, "editable": True} for day in days],
+            defaultColDef={"resizable": True, "sortable": False, "filter": False},
+            style={'width': '95%'},
+            dashGridOptions={"domLayout": "autoHeight"}
+        ),
 
+    html.Hr(),
+    html.H2("Shopping List:"),
+    html.Hr(),
+    dag.AgGrid(
+        id="shopping-table",
+        columnDefs=[],
+        rowData=[],
+        dashGridOptions={
+            "rowSelection": "multiple",
+            "suppressRowClickSelection": True,
+            "animateRows": False,
+            "rememberSelected": True,
+            "domLayout": "autoWidth"
+        },csvExportParams={
+                "fileName": f"shopping_list_{today}.csv",
+            },
+        style={'width': '95%',"height": "400px"}
+    ),html.Button("Download list", id="csv-button-list", n_clicks=0),
+    html.Hr(),
+   
+    ],fluid=True,style={'margin': '20px'},)
 
+# Search button → run scraper
 @app.callback(
-    Output("results-table", "data"),
     Output("loading-msg", "children"),
+    Output("results-table2", "rowData"),
+    Output("results-table2", "columnDefs"),
     Input("search-button", "n_clicks"),
     State("search-input", "value"),
     prevent_initial_call=True
 )
 def run_scraper(n_clicks, query):
     if not query:
-        return [], "Please enter a search term."
+        return "Please enter a search term.", [], []
     msg = f"Searching BBC Good Food for '{query}'..."
     df = get_urls(query)
+    df["AssignedDays"] = ""  # Add empty column initially
     if df.empty:
         return "No results found.", [], []
 
@@ -242,8 +313,6 @@ def send_email(n_clicks, recipient_email,table_data):
     if not recipient_email:
         return "Please enter an email address."
 
-    from_email = "kyrajdavies@gmail.com"
-    app_password = "bzcg talb otjl xutg"
     df_from_input = pd.DataFrame(table_data)
     html_body = df_from_input.to_html(index=False, border=1) 
 
@@ -262,4 +331,5 @@ def send_email(n_clicks, recipient_email,table_data):
 
 
 if __name__ == "__main__":
-    app.run_server(debug=True)
+    app.runq(debug=True,host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+
