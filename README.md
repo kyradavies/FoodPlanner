@@ -27,7 +27,7 @@ Replace the from_email and app_password values in the code with your own Gmail c
 You must enable App Passwords in your Google account and use that password in the script.
 
 📁 File Overview
-app.py – Main Dash app with all logic, callbacks, and layout
+recipe_data_collection.py – Main Dash app with all logic, callbacks, and layout
 Scraper uses BBC Good Food’s public HTML structure (no API)
 Shopping list and planner data stored locally in Dash Stores
 
