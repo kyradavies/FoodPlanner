@@ -1,4 +1,4 @@
-🍴 Forkcast – BBC Good Food Meal Planner App
+🍴 Forkcast – BBC Good Food Meal Planner App - https://foodplanner-ztcp.onrender.com 
 Forkcast is an interactive web application built with Dash that allows users to:
 - Search for recipes from BBC Good Food
 - Select meals to create a personalized weekly planner
@@ -23,7 +23,7 @@ Forkcast is an interactive web application built with Dash that allows users to:
 
 ✉️ Email Functionality
 To send emails from the app:
-Replace the from_email and app_password values in the code with your own Gmail credentials.
+The from_email and app_password variables are environment variables stored in render.
 You must enable App Passwords in your Google account and use that password in the script.
 
 📁 File Overview
@@ -32,7 +32,7 @@ Scraper uses BBC Good Food’s public HTML structure (no API)
 Shopping list and planner data stored locally in Dash Stores
 
 📝 Future Improvements
-Save meal plans per user session
-Support additional websites or APIs
-Ingredient categorization or tagging
-Responsive mobile-friendly design
+- Weekday view should store data
+- Save meal plans per user session
+- Support additional recipes websites or APIs
+- Ingredient categorisation or tagging
